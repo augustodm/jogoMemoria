@@ -20,7 +20,7 @@ code {
 display: flex;
 flex-wrap: wrap;
 background-color: orange;
-width: 375px ;
+width: 750px ;
 flex-direction: row;
 box-shadow: 0px 0px 20px rgba(0,0,0,.5);
 border: 5px solid orange;
@@ -34,9 +34,11 @@ border: 5px solid orange;
 }
 .cabecalho {
   position: relative;
-  left: 28px;
 }
+
 .titulo {
+  width: 750px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -45,11 +47,19 @@ border: 5px solid orange;
   text-align: center;
 }
 
-.titulo #botao {
-  top: 100px;
-  padding-top: 0px;
+.titulo h1{
+  margin: 0;
+  margin-top: 31px;
+}
+
+.titulo p{
+  margin: 0;
+}
+
+.header button {
+  top: 0;
   position: absolute;
-  left: 0px;
+  left: 0;
 }
 
 

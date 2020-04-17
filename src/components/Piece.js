@@ -1,11 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, createFactory } from 'react';
 
 class Piece extends Component{
+    state={
+        imgPath : this.props.default,  
+    };
+
     render(){
         return(
             <div>
                 <figure className="cards">
-                    <img src={this.props.img}/>
+                    <img id="carta" onClick={this.virar} src={this.state.imgPath}/> 
                 </figure>
             </div>
         );
@@ -13,3 +17,7 @@ class Piece extends Component{
 }
 
 export default Piece;
+/* passar uma função (status) para a imagem
+se o status for cima : mostra a imagem correta
+se o status for baixo mostra a carta virada para baixo
+a funçao virar seria responsavel por toda vez q for chamada trocar o status da carta */
