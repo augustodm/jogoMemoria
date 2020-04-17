@@ -30,17 +30,33 @@ const pecas = [
     { id:24, name: 'bulbasaur', imgPath: require("./assets/img/bulba.jpg")},
 ];
 
+embaralha(pecas);
+
 function ajuda(){
     alert("Clique nas cartas para virá-las. Basta memorizar a posição de cada carta e criar pares.");
 }
+function embaralha(pecas) {
+
+    for (let i = pecas.length; i; i--) {
+
+        const indiceAleatorio = Math.floor(Math.random() * i);
+        
+        // guarda de um índice aleatório da lista
+        const elemento = pecas[i - 1];
+        
+        pecas[i - 1] = pecas[indiceAleatorio];
+        
+        pecas[indiceAleatorio] = elemento;
+    }
+}
 
 class App extends Component {
+    state={
+        status : this.status,
+    };
 
     /*constructor(props){
         super(props);
-        this.state={
-    
-        };
     }*/
     
     render(){

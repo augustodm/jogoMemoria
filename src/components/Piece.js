@@ -9,7 +9,7 @@ class Piece extends Component{
         return(
             <div>
                 <figure className="cards">
-                    <img id="carta" onClick={this.virar} src={this.state.imgPath}/> 
+                    <img id="carta" src={this.props.img}/> 
                 </figure>
             </div>
         );
