@@ -6,9 +6,10 @@ class Header extends Component{
             <div className="header">
                 <div className="titulo">
                     <h1> Jogo da Memória!</h1>
-                    <p>Score: 0 </p>
+                    <p>Score: {this.props.score} </p>
                 </div>
-                <button onClick= {this.props.funcao}> Ajuda </button>
+                <button className="ajuda" onClick= {this.props.funcao}> Ajuda </button>
+                <button className="denovo" onClick= {this.props.reload} > Jogar novamente </button>
             </div>
         );
     }

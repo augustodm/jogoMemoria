@@ -56,8 +56,14 @@ border: 5px solid orange;
   margin: 0;
 }
 
-.header button {
-  top: 0;
+.ajuda {
+  top: 0px;
+  position: absolute;
+  left: 0;
+}
+
+.denovo {
+  top: 70px;
   position: absolute;
   left: 0;
 }
