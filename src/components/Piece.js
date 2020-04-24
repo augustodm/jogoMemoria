@@ -2,30 +2,35 @@ import React, { Component, createFactory } from 'react';
 import { pieceStatus } from '../constants';
 
 class Piece extends Component{
-    state={
-    };
+    state={ 
+        status : this.props.piece.status
+    }
 
     virar = () => {
-       if (this.state.path == this.props.defaultImg){
-         this.setState({
-         path : this.props.piece.imgPath
-        })
-        this.props.popular(this.props.piece);
-        this.desvirar();
+        if (this.state.status == pieceStatus.BACK){
+            this.setState({
+                status : pieceStatus.FACE
+            })
+            this.props.popular(this.props.piece);
         }
     }
 
-    desvirar = () => {
+    renderImg = () => {
+        switch (this.state.status){
+            case pieceStatus.BACK:  
+                return <img src={this.props.defaultImg} onClick={this.virar}/>;
+            case pieceStatus.FACE:
+                return <img src={this.props.piece.imgPath}/>;
+            case pieceStatus.IS_MATCHED:
+                return <img src={this.props.checkImg}/>;
+        }
     }
 
     render() {
         return(
             <div>
-                 <figure className="cards">
-                    {this.props.piece.pieceStatus.BACK ? <img src={this.props.defaultImg} onClick={this.virar}/>
-                    :
-                    <img src={this.props.checkImg}/>                   
-                    }
+                <figure className="cards">
+                    {this.renderImg()}
                 </figure>
             </div>
         );
