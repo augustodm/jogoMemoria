@@ -1,12 +1,12 @@
 import React, { Component, createFactory } from 'react';
+import { pieceStatus } from '../constants';
 
 class Piece extends Component{
     state={
-        path : this.props.default,
     };
 
     virar = () => {
-        if (this.state.path == this.props.default){
+       if (this.state.path == this.props.defaultImg){
          this.setState({
          path : this.props.piece.imgPath
         })
@@ -15,19 +15,17 @@ class Piece extends Component{
         }
     }
 
-    desvirar = () =>{
-        
+    desvirar = () => {
     }
 
     render() {
         return(
             <div>
-                <figure className="cards">
-                    {(!this.props.piece.isMatch) ? (
-                     <img src={this.state.path} onClick={this.virar}/>    
-                    ) : (
-                        <img src={this.props.check}/>   
-                    ) }   
+                 <figure className="cards">
+                    {this.props.piece.pieceStatus.BACK ? <img src={this.props.defaultImg} onClick={this.virar}/>
+                    :
+                    <img src={this.props.checkImg}/>                   
+                    }
                 </figure>
             </div>
         );
@@ -36,7 +34,23 @@ class Piece extends Component{
 
 export default Piece;
 
-/* passar uma função (status) para a imagem
+/*
+ <div>
+                <figure className="cards">
+                if (this.props.pieceStatus === pieceStatus.BACK){
+                    return (<img src={this.props.defaultImg} onClick={this.virar}/>);
+                } else if (this.props.pieceStatus === pieceStatus.IS_MATCHED){
+                    return (<img src={this.props.checkImg}/> );
+                } else {
+                    return (<img src={this.props.imgPath}/>);
+                }
+                </figure>
+            </div>
+
+
+
+
+passar uma função (status) para a imagem
 se o status for cima : mostra a imagem correta
 se o status for baixo mostra a carta virada para baixo
 a funçao virar seria responsavel por toda vez q for chamada trocar o status da carta 

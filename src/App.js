@@ -1,34 +1,36 @@
 import React, { Component } from 'react';
 import Piece from './components/Piece';
 import Header from './components/Header';
+import { pieceStatus } from './constants';
 
 const imgDefault = require("./assets/img/frente.jpg");
 const imgCheck = require("./assets/img/check.png");
+
 const pecas = [ 
-    { id:1, isMatch: false, name: 'ash', imgPath: require("./assets/img/ash.jpg")},
-    { id:2, isMatch: false, name: 'charizard', imgPath: require("./assets/img/charizard.jpg")},
-    { id:3, isMatch: false, name: 'evee', imgPath: require("./assets/img/evee.jpg")},
-    { id:4, isMatch: false, name: 'gyarados', imgPath: require("./assets/img/gyarados.jpg")},
-    { id:5, isMatch: false, name: 'pikachu', imgPath: require("./assets/img/pikachu.jpg")},
-    { id:6, isMatch: false, name: 'pokemon', imgPath: require("./assets/img/pokemon.jpg")},
-    { id:7, isMatch: false, name: 'sandshrew', imgPath: require("./assets/img/sandshrew.jpg")},
-    { id:8, isMatch: false, name: 'umbreon', imgPath: require("./assets/img/umbreon.jpg")},
-    { id:9, isMatch: false, name: 'victreebel', imgPath: require("./assets/img/victreebel.jpg")},
-    { id:10, isMatch: false, name: 'wartole', imgPath: require("./assets/img/wartole.jpg")},
-    { id:11, isMatch: false, name: 'charmander', imgPath: require("./assets/img/charmander.jpg")},
-    { id:12, isMatch: false, name: 'bulbasaur', imgPath: require("./assets/img/bulba.jpg")},
-    { id:13, isMatch: false, name: 'ash', imgPath: require("./assets/img/ash.jpg")},
-    { id:14, isMatch: false, name: 'charizard', imgPath: require("./assets/img/charizard.jpg")},
-    { id:15, isMatch: false, name: 'evee', imgPath: require("./assets/img/evee.jpg")},
-    { id:16, isMatch: false, name: 'gyarados', imgPath: require("./assets/img/gyarados.jpg")},
-    { id:17, isMatch: false, name: 'pikachu', imgPath: require("./assets/img/pikachu.jpg")},
-    { id:18, isMatch: false, name: 'pokemon', imgPath: require("./assets/img/pokemon.jpg")},
-    { id:19, isMatch: false, name: 'sandshrew', imgPath: require("./assets/img/sandshrew.jpg")},
-    { id:20, isMatch: false, name: 'umbreon', imgPath: require("./assets/img/umbreon.jpg")},
-    { id:21, isMatch: false, name: 'victreebel', imgPath: require("./assets/img/victreebel.jpg")},
-    { id:22, isMatch: false, name: 'wartole', imgPath: require("./assets/img/wartole.jpg")},
-    { id:23, isMatch: false, name: 'charmander', imgPath: require("./assets/img/charmander.jpg")},
-    { id:24, isMatch: false, name: 'bulbasaur', imgPath: require("./assets/img/bulba.jpg")},
+    { id:1, status: pieceStatus.BACK, name: 'ash', imgPath: require("./assets/img/ash.jpg")},
+    { id:2, status: pieceStatus.BACK, name: 'charizard', imgPath: require("./assets/img/charizard.jpg")},
+    { id:3, status: pieceStatus.BACK, name: 'evee', imgPath: require("./assets/img/evee.jpg")},
+    { id:4, status: pieceStatus.BACK, name: 'gyarados', imgPath: require("./assets/img/gyarados.jpg")},
+    { id:5, status: pieceStatus.BACK, name: 'pikachu', imgPath: require("./assets/img/pikachu.jpg")},
+    { id:6, status: pieceStatus.BACK, name: 'pokemon', imgPath: require("./assets/img/pokemon.jpg")},
+    { id:7, status: pieceStatus.BACK, name: 'sandshrew', imgPath: require("./assets/img/sandshrew.jpg")},
+    { id:8, status: pieceStatus.BACK, name: 'umbreon', imgPath: require("./assets/img/umbreon.jpg")},
+    { id:9, status: pieceStatus.BACK, name: 'victreebel', imgPath: require("./assets/img/victreebel.jpg")},
+    { id:10, status: pieceStatus.BACK, name: 'wartole', imgPath: require("./assets/img/wartole.jpg")},
+    { id:11, status: pieceStatus.BACK, name: 'charmander', imgPath: require("./assets/img/charmander.jpg")},
+    { id:12, status: pieceStatus.BACK, name: 'bulbasaur', imgPath: require("./assets/img/bulba.jpg")},
+    { id:13, status: pieceStatus.BACK, name: 'ash', imgPath: require("./assets/img/ash.jpg")},
+    { id:14, status: pieceStatus.BACK, name: 'charizard', imgPath: require("./assets/img/charizard.jpg")},
+    { id:15, status: pieceStatus.BACK, name: 'evee', imgPath: require("./assets/img/evee.jpg")},
+    { id:16, status: pieceStatus.BACK, name: 'gyarados', imgPath: require("./assets/img/gyarados.jpg")},
+    { id:17, status: pieceStatus.BACK, name: 'pikachu', imgPath: require("./assets/img/pikachu.jpg")},
+    { id:18, status: pieceStatus.BACK, name: 'pokemon', imgPath: require("./assets/img/pokemon.jpg")},
+    { id:19, status: pieceStatus.BACK, name: 'sandshrew', imgPath: require("./assets/img/sandshrew.jpg")},
+    { id:20, status: pieceStatus.BACK, name: 'umbreon', imgPath: require("./assets/img/umbreon.jpg")},
+    { id:21, status: pieceStatus.BACK, name: 'victreebel', imgPath: require("./assets/img/victreebel.jpg")},
+    { id:22, status: pieceStatus.BACK, name: 'wartole', imgPath: require("./assets/img/wartole.jpg")},
+    { id:23, status: pieceStatus.BACK, name: 'charmander', imgPath: require("./assets/img/charmander.jpg")},
+    { id:24, status: pieceStatus.BACK, name: 'bulbasaur', imgPath: require("./assets/img/bulba.jpg")},
 ];
 
 embaralha(pecas);
@@ -56,14 +58,18 @@ class App extends Component {
 
     match = (duo) => {
         if (duo[0].name == duo[1].name){
-            duo[0].isMatch = true;
-            duo[1].isMatch = true;
-            this.state.score++;
+            duo[0].pieceStatus = pieceStatus.IS_MATCHED;
+            duo[1].pieceStatus = pieceStatus.IS_MATCHED;
+            this.setState({
+                score : this.state.score + 1
+            })
             if (this.state.score === 12){
                 alert("Parebéns você ganhou!!!");
-            }
-            else {
-            }
+            } 
+        }
+        else {
+            duo[0].pieceStatus = pieceStatus.BACK;
+            duo[1].pieceStatus = pieceStatus.BACK;
         }
     }
 
@@ -93,7 +99,7 @@ class App extends Component {
                 <Header funcao={ajuda} reload={this.reload} score={this.state.score}/>
                 </div>
                 {this.state.pecas.map(peca => (
-                    <Piece piece={peca} duo={this.state.duo.length} default={imgDefault} check={imgCheck} popular={this.popular}/>
+                    <Piece piece={peca} defaultImg={imgDefault} checkImg={imgCheck} popular={this.popular}/>
                 ))}
             </div>
         );
