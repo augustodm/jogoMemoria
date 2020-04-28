@@ -89,42 +89,22 @@ class App extends Component {
     }
 
     desvirarCartas = (duo) =>{
-        const peca1 = duo[0];
-        const peca2 = duo[1];
         const pecasClone = JSON.parse(JSON.stringify(this.state.pecas));
-        const indexImg1 = pecasClone.findIndex((item) => {
-            if (peca1.id === item.id){
-                return true;
-            }
+        duo.forEach(piece => {
+            const indexImg = pecasClone.findIndex(item => piece.id === item.id);
+            pecasClone[indexImg].status = pieceStatus.BACK;
         });
-        const indexImg2 = pecasClone.findIndex((item) => {
-            if (peca2.id === item.id){
-                return true;
-            }
-        });
-        pecasClone[indexImg1].status = pieceStatus.BACK;
-        pecasClone[indexImg2].status = pieceStatus.BACK;
         this.setState({
             pecas : pecasClone
         });
     }
 
     checkCartas = (duo) =>{
-        const peca1 = duo[0];
-        const peca2 = duo[1];
         const pecasClone = JSON.parse(JSON.stringify(this.state.pecas));
-        const indexImg1 = pecasClone.findIndex((item) => {
-            if (peca1.id === item.id){
-                return true;
-            }
-        });
-        const indexImg2 = pecasClone.findIndex((item) => {
-            if (peca2.id === item.id){
-                return true;
-            }
-        });
-        pecasClone[indexImg1].status = pieceStatus.IS_MATCHED;
-        pecasClone[indexImg2].status = pieceStatus.IS_MATCHED;
+        duo.forEach(piece =>{
+            const indexImg = pecasClone.findIndex(item => piece.id === item.id);
+            pecasClone[indexImg].status = pieceStatus.IS_MATCHED;
+        })
         this.setState({
             pecas : pecasClone
         });
