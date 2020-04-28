@@ -58,69 +58,93 @@ class App extends Component {
 
     match = (duo) => {
         if (duo[0].name == duo[1].name){
-            duo[0].pieceStatus = pieceStatus.IS_MATCHED;
-            duo[1].pieceStatus = pieceStatus.IS_MATCHED;
-            console.log("deu match");
+            setTimeout(() => this.checkCartas(duo), 300);
             this.setState({
                 score : this.state.score + 1
-            })
-            if (this.state.score === 12){
-                alert("Parebéns você ganhou!!!");
-            } 
+            },() => {
+                if (this.state.score === 12){
+                setTimeout(() => alert("Parebéns, você ganhou!!!"), 500);
+            }})
         }
         else {
-            console.log('não deu match');
-            duo[0].pieceStatus = pieceStatus.BACK;
-            duo[1].pieceStatus = pieceStatus.BACK;
-            console.log(duo[0].status);
-            console.log(duo[1].status);
-            const arrayClone = [...pecas];
-            console.log(arrayClone);
-
-
-            
-             /*duo[0].pieceStatus = pieceStatus.BACK;
-            duo[1].pieceStatus = pieceStatus.BACK; 
-            const id1 = duo[0].id - 1;
-            const id2 = duo[1].id - 1;
-            const arrayClone = [...pecas];
-            arrayClone[id1].pieceStatus = pieceStatus.BACK;
-            arrayClone[id2].pieceStatus = pieceStatus.BACK;
-            this.setState({
-                pecas : arrayClone
-            })
-           const arrayClone = [...pecas];
-            const index = arrayClone.findIndex((el) => {
-                if (el === duo[0].id){
-                    return true;
-                }
-            }) 
-            const index2 = arrayClone.findIndex((el) => {
-                if (el === duo[1].id){
-                    return true;
-                }
-            }) 
-            arrayClone[index].pieceStatus = pieceStatus.BACK;
-            arrayClone[index2].pieceStatus = pieceStatus.BACK;
-            this.setState({
-               pecas : arrayClone
-            })*/
+            console.log('não deu match');   
+            setTimeout(() => this.desvirarCartas(duo), 700);
         }
     }
 
-    popular = (peca) => { 
-        const duo = this.state.duo;
-        duo.push(peca);
+    virarCarta = (peca) => { 
+        peca.status = pieceStatus.FACE;
+        const pecasClone = JSON.parse(JSON.stringify(this.state.pecas));
+        const indexImg = pecasClone.findIndex((item) =>{
+            if (peca.id === item.id){
+                return true;
+            }
+        });
+        pecasClone[indexImg] = peca;
         this.setState({
-            duo
+            pecas : pecasClone
+        });
+
+        this.popular(peca);
+    }
+
+    desvirarCartas = (duo) =>{
+        const peca1 = duo[0];
+        const peca2 = duo[1];
+        const pecasClone = JSON.parse(JSON.stringify(this.state.pecas));
+        const indexImg1 = pecasClone.findIndex((item) => {
+            if (peca1.id === item.id){
+                return true;
+            }
+        });
+        const indexImg2 = pecasClone.findIndex((item) => {
+            if (peca2.id === item.id){
+                return true;
+            }
+        });
+        pecasClone[indexImg1].status = pieceStatus.BACK;
+        pecasClone[indexImg2].status = pieceStatus.BACK;
+        this.setState({
+            pecas : pecasClone
+        });
+    }
+
+    checkCartas = (duo) =>{
+        const peca1 = duo[0];
+        const peca2 = duo[1];
+        const pecasClone = JSON.parse(JSON.stringify(this.state.pecas));
+        const indexImg1 = pecasClone.findIndex((item) => {
+            if (peca1.id === item.id){
+                return true;
+            }
+        });
+        const indexImg2 = pecasClone.findIndex((item) => {
+            if (peca2.id === item.id){
+                return true;
+            }
+        });
+        pecasClone[indexImg1].status = pieceStatus.IS_MATCHED;
+        pecasClone[indexImg2].status = pieceStatus.IS_MATCHED;
+        this.setState({
+            pecas : pecasClone
+        });
+    }
+
+    popular= (peca) =>{
+        const duoClone = JSON.parse(JSON.stringify(this.state.duo));
+        duoClone.push(peca);
+        this.setState({
+            duo : duoClone
+        },() => { //as proximas instruções so serão executadas apos o termino do setstate
+            console.log('this.duo', this.state.duo); 
+            if (this.state.duo.length == 2){
+                this.match(this.state.duo);
+                this.setState({
+                    duo : []
+                })
+            }  
         })
-        console.log('this.duo', this.state.duo); 
-        if (this.state.duo.length == 2){
-            this.match(this.state.duo);
-            this.setState({
-                duo : []
-            })
-        }
+        
     }
     
     reload = () =>{
@@ -134,7 +158,7 @@ class App extends Component {
                 <Header funcao={ajuda} reload={this.reload} score={this.state.score}/>
                 </div>
                 {this.state.pecas.map(peca => (
-                    <Piece piece={peca} defaultImg={imgDefault} checkImg={imgCheck} popular={this.popular}/>
+                    <Piece key={peca.id} piece={peca} defaultImg={imgDefault} checkImg={imgCheck} virarCarta={this.virarCarta}/>
                 ))}
             </div>
         );
