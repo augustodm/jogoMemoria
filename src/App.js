@@ -57,10 +57,11 @@ class App extends Component {
     };
 
     match = (duo) => {
+        const {score} = this.state;
         if (duo[0].name == duo[1].name){
             setTimeout(() => this.checkCartas(duo), 300);
             this.setState({
-                score : this.state.score + 1
+                score : score + 1
             },() => {
                 if (this.state.score === 12){
                 setTimeout(() => alert("Parebéns, você ganhou!!!"), 500);
@@ -72,9 +73,10 @@ class App extends Component {
         }
     }
 
-    virarCarta = (peca) => { 
+    virarCarta = (peca) => {
+        const {pecas} = this.state;
         peca.status = pieceStatus.FACE;
-        const pecasClone = JSON.parse(JSON.stringify(this.state.pecas));
+        const pecasClone = JSON.parse(JSON.stringify(pecas));
         const indexImg = pecasClone.findIndex((item) =>{
             if (peca.id === item.id){
                 return true;
@@ -89,7 +91,8 @@ class App extends Component {
     }
 
     desvirarCartas = (duo) =>{
-        const pecasClone = JSON.parse(JSON.stringify(this.state.pecas));
+        const {pecas} = this.state;
+        const pecasClone = JSON.parse(JSON.stringify(pecas));
         duo.forEach(piece => {
             const indexImg = pecasClone.findIndex(item => piece.id === item.id);
             pecasClone[indexImg].status = pieceStatus.BACK;
@@ -100,7 +103,8 @@ class App extends Component {
     }
 
     checkCartas = (duo) =>{
-        const pecasClone = JSON.parse(JSON.stringify(this.state.pecas));
+        const {pecas} = this.state;
+        const pecasClone = JSON.parse(JSON.stringify(pecas));
         duo.forEach(piece =>{
             const indexImg = pecasClone.findIndex(item => piece.id === item.id);
             pecasClone[indexImg].status = pieceStatus.IS_MATCHED;
@@ -111,18 +115,21 @@ class App extends Component {
     }
 
     popular= (peca) =>{
-        const duoClone = JSON.parse(JSON.stringify(this.state.duo));
+        console.log(peca);
+        const {duo} = this.state;
+        const duoClone = JSON.parse(JSON.stringify(duo));
         duoClone.push(peca);
+        console.log(duoClone);
         this.setState({
             duo : duoClone
         },() => { //as proximas instruções so serão executadas apos o termino do setstate
             console.log('this.duo', this.state.duo); 
-            if (this.state.duo.length == 2){
-                this.match(this.state.duo);
-                this.setState({
-                    duo : []
-                })
-            }  
+                if (this.state.duo.length == 2){
+                    this.match(this.state.duo);
+                    this.setState({
+                        duo : []
+                    })
+                }  
         })
         
     }
@@ -132,12 +139,13 @@ class App extends Component {
     }
 
     render(){
+        const {score, pecas} = this.state;
         return(
             <div className="container">
                 <div className="cabecalho">
-                <Header funcao={ajuda} reload={this.reload} score={this.state.score}/>
+                <Header funcao={ajuda} reload={this.reload} score={score}/>
                 </div>
-                {this.state.pecas.map(peca => (
+                {pecas.map(peca => (
                     <Piece key={peca.id} piece={peca} defaultImg={imgDefault} checkImg={imgCheck} virarCarta={this.virarCarta}/>
                 ))}
             </div>

@@ -4,27 +4,30 @@ import { pieceStatus } from '../constants';
 class Piece extends Component{
 
     virar = () => {
-        if(this.props.piece.status === pieceStatus.BACK){
-            this.props.virarCarta({...this.props.piece});
+        const {piece, virarCarta} = this.props;
+        if(piece.status === pieceStatus.BACK){
+            virarCarta({...piece});
         }
     }
 
     renderImg = (piece) => {
+        const {defaultImg, checkImg} = this.props;
         switch (piece.status){
             case pieceStatus.BACK:  
-                return <img src={this.props.defaultImg} onClick={this.virar}/>;
+                return <img src={defaultImg} onClick={this.virar}/>;
             case pieceStatus.FACE:
                 return <img src={piece.imgPath}/>;
             case pieceStatus.IS_MATCHED:
-                return <img src={this.props.checkImg}/>;
+                return <img src={checkImg}/>;
         }
     }
 
     render() {
+        const {piece} = this.props;
         return(
             <div>
                 <figure className="cards">
-                    {this.renderImg(this.props.piece)}
+                    {this.renderImg(piece)}
                 </figure>
             </div>
         );
@@ -32,40 +35,3 @@ class Piece extends Component{
 }
 
 export default Piece;
-
-/*
- <div>
-                <figure className="cards">
-                if (this.props.pieceStatus === pieceStatus.BACK){
-                    return (<img src={this.props.defaultImg} onClick={this.virar}/>);
-                } else if (this.props.pieceStatus === pieceStatus.IS_MATCHED){
-                    return (<img src={this.props.checkImg}/> );
-                } else {
-                    return (<img src={this.props.imgPath}/>);
-                }
-                </figure>
-            </div>
-
-
-
-
-passar uma função (status) para a imagem
-se o status for cima : mostra a imagem correta
-se o status for baixo mostra a carta virada para baixo
-a funçao virar seria responsavel por toda vez q for chamada trocar o status da carta 
-
- state={
-        path : this.props.img
-    };
-
-    virar = () => {
-        if (this.state.path == this.props.default)
-        this.setState({
-            path : this.props.piece.imgPath
-        })
-        else 
-        this.setState({
-            path : this.props.default
-        })
-    }
-*/
