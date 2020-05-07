@@ -3,6 +3,7 @@ import Piece from './components/Piece';
 import Header from './components/Header';
 import { pieceStatus } from './constants';
 
+
 const imgDefault = require("./assets/img/frente.jpg");
 const imgCheck = require("./assets/img/check.png");
 

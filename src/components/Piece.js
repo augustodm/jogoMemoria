@@ -1,37 +1,36 @@
 import React, { Component, createFactory } from 'react';
 import { pieceStatus } from '../constants';
 
-class Piece extends Component{
+function Piece (props) {
 
-    virar = () => {
-        const {piece, virarCarta} = this.props;
+    function virar () {
+        const {piece, virarCarta} = props;
         if(piece.status === pieceStatus.BACK){
             virarCarta({...piece});
         }
     }
 
-    renderImg = (piece) => {
-        const {defaultImg, checkImg} = this.props;
-        switch (piece.status){
-            case pieceStatus.BACK:  
-                return <img src={defaultImg} onClick={this.virar}/>;
-            case pieceStatus.FACE:
-                return <img src={piece.imgPath}/>;
-            case pieceStatus.IS_MATCHED:
-                return <img src={checkImg}/>;
+    function renderImg (piece) {
+        const {defaultImg, checkImg} = props;
+            switch (piece.status){
+                case pieceStatus.BACK:  
+                    return <img src={defaultImg} onClick={virar}/>;
+                case pieceStatus.FACE:
+                    return <img src={piece.imgPath}/>;
+                case pieceStatus.IS_MATCHED:
+                    return <img src={checkImg}/>;
+            }
         }
-    }
-
-    render() {
-        const {piece} = this.props;
+        
+        const {piece} = props;
         return(
             <div>
                 <figure className="cards">
-                    {this.renderImg(piece)}
+                    {renderImg(piece)}
                 </figure>
             </div>
         );
-    }
 }
+
 
 export default Piece;
